@@ -500,6 +500,11 @@
     protobufjs "^7.0.0"
     yargs "^16.2.0"
 
+"@heroicons/react@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-1.0.1.tgz#66d25f6441920bd5c2146ea27fd33995885452dd"
+  integrity sha512-uikw2gKCmqnvjVxitecWfFLMOKyL9BTFcU4VM3hHj9OMwpkCr5Ke+MRMyY2/aQVmsYs4VTq7NCFX05MYwAHi3g==
+
 "@humanwhocodes/config-array@^0.10.5":
   version "0.10.7"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.7.tgz#6d53769fd0c222767e6452e8ebda825c22e9f0dc"
