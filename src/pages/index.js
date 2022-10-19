@@ -1,10 +1,11 @@
 import Head from "next/head";
 
 import Header from "../components/Header/Header";
+import Banner from "../components/Banner/Banner";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-gray-100">
       <Head>
         <title>Amazon</title>
         <meta
@@ -15,6 +16,10 @@ export default function Home() {
       </Head>
 
       <Header />
+
+      <main className="mx-auto max-w-[1200px]">
+        <Banner />
+      </main>
     </div>
   );
 }
