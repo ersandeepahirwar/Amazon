@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import {
@@ -10,6 +11,8 @@ import {
 
 const Header = () => {
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   return (
     <header>
@@ -22,6 +25,7 @@ const Header = () => {
             height={20}
             objectFit="contain"
             className="cursor-pointer active:scale-90 active:transform"
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="hidden h-6 flex-grow items-center rounded-md bg-yellow-400 hover:bg-yellow-500 sm:flex">
@@ -48,7 +52,10 @@ const Header = () => {
               & Orders
             </p>
           </div>
-          <div className="relative flex items-center">
+          <div
+            className="relative flex items-center"
+            onClick={() => router.push("/checkout")}
+          >
             <span className="absolute -top-1 -right-1 h-4 w-4 cursor-pointer rounded-full bg-yellow-400 text-center text-xs font-semibold text-black md:right-7">
               0
             </span>
