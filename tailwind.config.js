@@ -10,5 +10,6 @@ module.exports = {
   plugins: [
     require("prettier-plugin-tailwindcss"),
     require("@tailwindcss/line-clamp"),
+    require("tailwind-scrollbar-hide"),
   ],
 };
