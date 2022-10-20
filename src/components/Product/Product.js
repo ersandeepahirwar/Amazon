@@ -20,7 +20,7 @@ const Product = ({
 
   return (
     <div className="relative z-30 mx-auto flex w-[90vw] origin-bottom scale-100 transform flex-col justify-end space-y-2 bg-white p-5 transition-transform duration-300 hover:scale-95 sm:w-auto">
-      <p className="absolute top-2 right-3 text-xs italic text-gray-400">
+      <p className="absolute top-2 right-3 text-xs capitalize text-gray-400">
         {category}
       </p>
       <div className="p-5 text-center">
