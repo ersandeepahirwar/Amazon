@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { signIn, signOut, useSession } from "next-auth/react";
+
 import {
   MenuIcon,
   SearchIcon,
@@ -7,6 +9,8 @@ import {
 } from "@heroicons/react/outline";
 
 const Header = () => {
+  const { data: session } = useSession();
+
   return (
     <header>
       <div className="flex items-center bg-[#131921] px-3 py-3 sm:space-x-3">
@@ -28,9 +32,9 @@ const Header = () => {
           <SearchIcon className="h-full cursor-pointer p-1" />
         </div>
         <div className="flex items-center space-x-3 whitespace-nowrap">
-          <div className="">
+          <div onClick={!session ? signIn : signOut}>
             <p className="cursor-pointer text-xs text-white hover:underline">
-              Hello, Codey Sandeep!
+              {session ? `Hello, ${session.user.name}` : "Sign In"}
             </p>
             <p className="cursor-pointer text-xs text-white hover:underline">
               Account & List
