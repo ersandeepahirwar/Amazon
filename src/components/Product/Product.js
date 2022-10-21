@@ -1,10 +1,15 @@
 import Image from "next/image";
 
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import isprime from "isprime";
+
 import Currency from "react-currency-formatter";
 
-import { useState } from "react";
-
 import { StarIcon } from "@heroicons/react/solid";
+
+import { addToCart } from "../../slices/cartSlice";
 
 const Product = ({
   id,
@@ -15,11 +20,28 @@ const Product = ({
   image,
   rating,
 }) => {
+  const dispatch = useDispatch();
+
   const [ratings] = useState(Math.ceil(rating.rate));
-  const [hasPrime] = useState(Math.random() < 0.5);
+  const [hasPrime] = useState(isprime(id));
+
+  const addProductToCart = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      ratings,
+      hasPrime,
+    };
+
+    dispatch(addToCart(product));
+  };
 
   return (
-    <div className="relative z-30 mx-auto flex w-[90vw] origin-bottom scale-100 transform flex-col justify-end space-y-2 bg-white p-5 transition-transform duration-300 hover:scale-95 sm:w-auto">
+    <div className="relative z-30 mx-auto flex w-[90vw] origin-bottom scale-100 transform flex-col justify-end space-y-3 bg-white p-5 shadow-md transition-transform duration-300 hover:scale-95 sm:w-auto">
       <p className="absolute top-2 right-3 text-xs capitalize text-gray-400">
         {category}
       </p>
@@ -44,18 +66,21 @@ const Product = ({
       <div className="text-center">
         <Currency quantity={price} currency="GBP" />
       </div>
-      {hasPrime === Boolean(hasPrime) && (
+      {hasPrime && (
         <div className="flex items-center justify-center space-x-2">
           <img
             loading="lazy"
-            src="https://i.ibb.co/MkhcHW6/Prime.png"
+            src="https://i.ibb.co/dWmVqy3/Prime.png"
             alt="Prime Image"
             className="w-12"
           />
           <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
         </div>
       )}
-      <button className="rounded-sm border border-yellow-300 bg-gradient-to-b from-yellow-200 to-yellow-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-yellow-500 active:from-yellow-500">
+      <button
+        className="rounded-sm border border-yellow-300 bg-gradient-to-b from-yellow-200 to-yellow-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-yellow-500"
+        onClick={addProductToCart}
+      >
         Add to Cart
       </button>
     </div>

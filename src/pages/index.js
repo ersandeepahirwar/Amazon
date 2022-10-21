@@ -6,7 +6,7 @@ import Feed from "../components/Feed/Feed";
 
 export default function Home({ products }) {
   return (
-    <div className="bg-gray-100">
+    <div className="h-screen overflow-y-scroll bg-gray-100 scrollbar-hide">
       <Head>
         <title>Amazon</title>
         <meta
@@ -15,9 +15,7 @@ export default function Home({ products }) {
         />
         <link rel="icon" href="favicon.ico" />
       </Head>
-
       <Header />
-
       <main className="mx-auto max-w-[1200px]">
         <Banner />
         <Feed products={products} />

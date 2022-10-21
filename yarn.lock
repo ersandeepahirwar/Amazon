@@ -2264,6 +2264,11 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
+isprime@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/isprime/-/isprime-0.0.2.tgz#e28e828e613c46225dc5c03367bba0470ca7f7ac"
+  integrity sha512-rffkczs9biUfFhf7f9ceplMLOU+cVjKysKP1KTP2tyY+KJfdZHXdMpqf78O2p1PNSV8BM7I6Cu5RN83jOjQg9Q==
+
 jose@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/jose/-/jose-2.0.6.tgz#894ba19169af339d3911be933f913dd02fc57c7c"

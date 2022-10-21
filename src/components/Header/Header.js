@@ -9,13 +9,19 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
 
+import { useSelector } from "react-redux";
+
+import { selectProducts } from "../../slices/cartSlice";
+
 const Header = () => {
   const { data: session } = useSession();
 
   const router = useRouter();
 
+  const products = useSelector(selectProducts);
+
   return (
-    <header>
+    <header className="sticky top-0 z-50">
       <div className="flex items-center bg-[#131921] px-3 py-3 sm:space-x-3">
         <div className="flex flex-grow items-center sm:flex-grow-0">
           <Image
@@ -56,8 +62,12 @@ const Header = () => {
             className="relative flex items-center"
             onClick={() => router.push("/checkout")}
           >
-            <span className="absolute -top-1 -right-1 h-4 w-4 cursor-pointer rounded-full bg-yellow-400 text-center text-xs font-semibold text-black md:right-7">
-              0
+            <span
+              className={`absolute -top-1 -right-1 h-4 ${
+                products.length >= 10 ? "w-5" : "w-4"
+              } cursor-pointer rounded-full bg-yellow-400 text-center text-xs font-semibold text-black md:right-7`}
+            >
+              {products.length}
             </span>
             <ShoppingCartIcon className="h-6 cursor-pointer text-white" />
             <p className="hidden cursor-pointer text-xs text-white md:ml-2 md:inline">
