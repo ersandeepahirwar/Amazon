@@ -5,14 +5,20 @@ import { useSession } from "next-auth/react";
 
 import Currency from "react-currency-formatter";
 
-import { selectProducts, selectTotalPrice } from "../slices/cartSlice";
+import { selectProducts } from "../slices/cartSlice";
 
 import Header from "../components/Header/Header";
 import Item from "../components/Item/Item";
 
 const Checkout = () => {
   const products = useSelector(selectProducts);
-  const totalPrice = useSelector(selectTotalPrice);
+
+  const totalItems = 0;
+  const totalPrice = 0;
+  products.forEach((product) => {
+    totalItems += product.quantity;
+    totalPrice += product.price * product.quantity;
+  });
 
   const { data: session } = useSession();
 
@@ -46,6 +52,7 @@ const Checkout = () => {
                     image,
                     ratings,
                     hasPrime,
+                    quantity,
                   },
                   index
                 ) => (
@@ -59,6 +66,7 @@ const Checkout = () => {
                     image={image}
                     ratings={ratings}
                     hasPrime={hasPrime}
+                    quantity={quantity}
                   />
                 )
               )}
@@ -69,7 +77,7 @@ const Checkout = () => {
           {products.length > 0 && (
             <div className="space-y-3 bg-white p-5">
               <p className="text-center text-sm">
-                Subtotal ({products.length} products):
+                Subtotal ({totalItems} Items):
                 <span>
                   &nbsp;
                   <Currency quantity={totalPrice} currency="GBP" />

@@ -9,37 +9,49 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.products = [...state.products, action.payload];
+      const existingProduct = state.products.find(
+        (product) => product.id === action.payload.id
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        state.products.push({ quantity: 1, ...action.payload });
+      }
+    },
+
+    increaseQuantity: (state, action) => {
+      const existingProduct = state.products.find(
+        (product) => product.id === action.payload
+      );
+      existingProduct.quantity++;
+    },
+
+    decreaseQuantity: (state, action) => {
+      const existingProduct = state.products.find(
+        (product) => product.id === action.payload
+      );
+
+      if (existingProduct.quantity === 1) {
+        existingProduct.quantity = 1;
+      } else {
+        existingProduct.quantity--;
+      }
     },
 
     removeFromCart: (state, action) => {
-      const index = state.products.findIndex(
-        (cartProduct) => cartProduct.id === action.payload
+      const existingProduct = state.products.filter(
+        (product) => product.id !== action.payload
       );
 
-      const CART = [...state.products];
-
-      if (index >= 0) {
-        CART.splice(index, 1);
-      } else {
-        console.warn(
-          `Can't remove product (id: ${action.payload.id}) as its not in cart!`
-        );
-      }
-
-      state.products = CART;
+      state.products = existingProduct;
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, increaseQuantity, decreaseQuantity, removeFromCart } =
+  cartSlice.actions;
 
 export const selectProducts = (state) => state.cart.products;
-
-export const selectTotalPrice = (state) =>
-  state.cart.products.reduce(
-    (totalPrice, product) => totalPrice + product.price,
-    0
-  );
 
 export default cartSlice.reducer;

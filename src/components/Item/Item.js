@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 
 import Currency from "react-currency-formatter";
 
-import { StarIcon } from "@heroicons/react/solid";
+import { MinusIcon, PlusIcon, StarIcon } from "@heroicons/react/solid";
 
-import { addToCart, removeFromCart } from "../../slices/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../slices/cartSlice";
 
 const Item = ({
   id,
@@ -17,22 +21,16 @@ const Item = ({
   image,
   ratings,
   hasPrime,
+  quantity,
 }) => {
   const dispatch = useDispatch();
 
-  const addProductToCart = () => {
-    const product = {
-      id,
-      title,
-      price,
-      description,
-      category,
-      image,
-      ratings,
-      hasPrime,
-    };
+  const increaseProductQuantity = () => {
+    dispatch(increaseQuantity(id));
+  };
 
-    dispatch(addToCart(product));
+  const decreaseProductQuantity = () => {
+    dispatch(decreaseQuantity(id));
   };
 
   const removeProductFromCart = () => {
@@ -75,13 +73,25 @@ const Item = ({
           </div>
         )}
       </div>
-      <div className="flex flex-col space-y-2 lg:min-w-[150px]">
-        <button
-          className="rounded-sm border border-yellow-300 bg-gradient-to-b from-yellow-200 to-yellow-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-yellow-500"
-          onClick={addProductToCart}
-        >
-          Add To Cart
-        </button>
+      <div className="flex flex-col space-y-3 lg:min-w-[150px]">
+        <div className="flex flex-row items-center justify-center space-x-3">
+          <button
+            disabled={quantity === 1}
+            className={`rounded-sm border border-red-300 bg-gradient-to-b from-red-200 to-red-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 ${
+              quantity === 1 && "cursor-not-allowed"
+            }`}
+            onClick={decreaseProductQuantity}
+          >
+            <MinusIcon className="h-4" />
+          </button>
+          <p>{quantity}</p>
+          <button
+            className="rounded-sm border border-green-300 bg-gradient-to-b from-green-200 to-green-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-green-500"
+            onClick={increaseProductQuantity}
+          >
+            <PlusIcon className="h-4" />
+          </button>
+        </div>
         <button
           className="rounded-sm border border-yellow-300 bg-gradient-to-b from-yellow-200 to-yellow-400 p-1 text-xs focus:outline-none focus:ring-1 focus:ring-yellow-500"
           onClick={removeProductFromCart}
