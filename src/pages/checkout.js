@@ -5,6 +5,11 @@ import { useSession } from "next-auth/react";
 
 import Currency from "react-currency-formatter";
 
+import axios from "axios";
+
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(process.env.stripe_publishable_key);
+
 import { selectProducts } from "../slices/cartSlice";
 
 import Header from "../components/Header/Header";
@@ -13,6 +18,8 @@ import Item from "../components/Item/Item";
 const Checkout = () => {
   const products = useSelector(selectProducts);
 
+  const { data: session } = useSession();
+
   const totalItems = 0;
   const totalPrice = 0;
   products.forEach((product) => {
@@ -20,7 +27,22 @@ const Checkout = () => {
     totalPrice += product.price * product.quantity;
   });
 
-  const { data: session } = useSession();
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      products: products,
+      email: session.user.email,
+    });
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result.error) {
+      alert(result.error.message);
+    }
+  };
 
   return (
     <div className="h-screen overflow-y-scroll bg-gray-100 pb-10 scrollbar-hide">
@@ -84,10 +106,12 @@ const Checkout = () => {
                 </span>
               </p>
               <button
+                role="link"
+                onClick={createCheckoutSession}
                 disabled={!session}
-                className={`w-full cursor-not-allowed rounded-sm border bg-gradient-to-b p-1 text-xs focus:outline-none focus:ring-1 ${
+                className={`w-full rounded-sm border bg-gradient-to-b p-1 text-xs focus:outline-none focus:ring-1 ${
                   !session
-                    ? "border-gray-700 from-gray-500 to-gray-700 text-white focus:ring-gray-700"
+                    ? "cursor-not-allowed border-gray-700 from-gray-500 to-gray-700 text-white focus:ring-gray-700"
                     : "border-yellow-300 from-yellow-200 to-yellow-400  focus:ring-yellow-500"
                 }`}
               >
