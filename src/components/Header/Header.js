@@ -50,7 +50,10 @@ const Header = () => {
               Account & List
             </p>
           </div>
-          <div className="hidden flex-col sm:flex">
+          <div
+            onClick={() => router.push("/orders")}
+            className="hidden flex-col sm:flex"
+          >
             <p className="cursor-pointer text-xs text-white hover:underline">
               Returns
             </p>
