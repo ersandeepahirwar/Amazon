@@ -17,7 +17,6 @@ const Item = ({
   title,
   price,
   description,
-  category,
   image,
   ratings,
   hasPrime,

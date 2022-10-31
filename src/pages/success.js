@@ -10,7 +10,7 @@ const Success = () => {
   return (
     <div className="h-screen overflow-y-scroll bg-gray-100 scrollbar-hide">
       <Header />
-      <main className="mx-auto mt-5 w-[90vw] max-w-[1200px]">
+      <main className="mx-auto mt-5 w-[90vw] max-w-[1000px]">
         <div className="flex flex-col space-y-5 bg-white p-5">
           <div className="flex flex-col items-center space-x-2 md:flex-row">
             <CheckCircleIcon className="h-20 text-green-500 md:h-8" />

@@ -11,16 +11,13 @@ const Orders = ({ orders }) => {
   const { data: session } = useSession();
 
   return (
-    <div>
+    <div className="h-screen overflow-y-scroll scrollbar-hide">
       <Header />
-      <main>
-        <p>Your Orders</p>
-        {session ? (
-          <p>{orders.length} Orders</p>
-        ) : (
-          <p>Please sign in to see your orders</p>
-        )}
-        <div>
+      <main className="mx-auto mt-5 w-[90vw] max-w-[1000px] space-y-5 pb-10">
+        <div className="border p-2 text-center text-[14px] font-[500] shadow-md">
+          {session ? `Your Orders` : `Please sign in to see your orders`}
+        </div>
+        <div className="space-y-5">
           {orders?.map(
             ({
               id,

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import {
@@ -9,15 +10,12 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
 
-import { useSelector } from "react-redux";
-
 import { selectProducts } from "../../slices/cartSlice";
 
 const Header = () => {
   const { data: session } = useSession();
 
   const router = useRouter();
-
   const products = useSelector(selectProducts);
 
   return (
@@ -82,10 +80,20 @@ const Header = () => {
       <div className="flex items-center space-x-3 bg-[#232F3E] p-2">
         <p className="flex cursor-pointer items-center space-x-1 text-xs text-white">
           <MenuIcon className="h-6" />
-          <span>All</span>
+          <span className="hidden sm:inline-flex">All</span>
         </p>
-        <p className="cursor-pointer text-xs text-white">Prime Video</p>
-        <p className="cursor-pointer text-xs text-white">Amazon Business</p>
+        <p
+          onClick={() => router.push("/orders")}
+          className="cursor-pointer text-xs text-white sm:hidden"
+        >
+          Returns & Orders
+        </p>
+        <p className="hidden cursor-pointer text-xs text-white sm:inline-flex">
+          Prime Video
+        </p>
+        <p className="hidden cursor-pointer text-xs text-white sm:inline-flex">
+          Amazon Business
+        </p>
         <p className="hidden cursor-pointer text-xs text-white lg:inline-flex">
           Today's Deals
         </p>
